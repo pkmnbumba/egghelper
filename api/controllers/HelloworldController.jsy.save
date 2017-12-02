@@ -1,0 +1,86 @@
+/**
+ * HelloworldController
+ *
+ * @description :: Server-side logic for managing helloworlds
+ * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ */
+ //var r = require('../services/Reddit.js');
+ var rp = require('request-promise');
+ var yaml = require('../services.yamljs.js
+');
+
+ 
+module.exports = {
+	
+
+
+  /**
+   * `HelloworldController.getHelloWorld()`
+   */
+  getHelloWorld: function (req, res) {
+    console.log(sails.config.reddit.userAgent); // To see result on console
+		   
+		   Number.prototype.convertToTSV = function() {
+      var s = String(this);
+      while (s.length < (4)) {s = "0" + s;}
+      return s;
+    }
+	
+	for (var i = 2931; i < 2932; i++) { // change to i < 10000
+	var iTSV = i.convertToTSV();
+	
+	//var TSVquery = 'title:' + iTSV + ' and flair:(TSV (Gen 7))';
+	var TSVquery = "title:" + iTSV;
+
+	console.log(TSVquery);
+	var subreddit = 'SVExchange'
+	
+	var data = 'grant_type=refresh_token&refresh_token=36155828860-zVv-moHBO7ZMqMW9JmhqqJYyAmA'
+	
+	rp.post({
+    url: 'https://www.reddit.com/api/v1/access_token',
+    body: data,
+    json: true,
+    headers: {
+ //     "Authorization": auth,
+      "User-Agent": sails.config.reddit.userAgent,
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Length": data.length
+    }
+  },{
+  'auth': {
+    'user': 'XLF4M3RqK0ChjQ',
+    'pass': 'wR4CA8KHEme4UIFUvusPgLu7zZ8',
+    'sendImmediately': false
+  }
+})
+.then(function (htmlString) {
+        console.log(htmlString.substring(4));
+    });
+	
+/*	rp('https://www.reddit.com/api/v1/access_token')
+    .then(function (htmlString) {
+        console.log(htmlString.substring(4));
+    })
+    .catch(function (err) {
+        // Crawling failed...
+    });
+	
+	*/
+/*	
+var threads = r.search(sails.config.reddit.adminRefreshToken, subreddit, TSVquery, true, 'new', 'all', 'cloudsearch')
+threads.then(function(result) {
+   console.log(result) //will log results.
+})
+threads.catch(function(err) {
+	console.log("login failed: " + err);
+});
+
+*/
+}
+     return res.send("Hello World !"); // To see result on browser
+
+
+  
+}};
+
