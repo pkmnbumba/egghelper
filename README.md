@@ -1,3 +1,3 @@
 # egghelper
 
-a [Sails](http://sailsjs.org) application
+Currently all I coded is here: http://localhost:1337/helloworld/getHelloWorld
